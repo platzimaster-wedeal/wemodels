@@ -21,14 +21,15 @@ class Utils:
         score = round(score)
         joblib.dump(clf, f'./best_models/{models_type}_model_{score}.pkl')
 
-    def haversine(lat1,len1,lat2,len2):
+    def haversine(self, lat1,lon1,lat2,lon2):
         """ Calculate the distance between two 
             points of geolocalization based on Haversine metodh. """
         rad = math.pi/180 
         dlat=lat2-lat1
-        dlen=len2-len1
+        dlon=lon2-lon1
         R=6372.795477598
-        a=(math.sin(rad*dlat/2))**2 + math.cos(rad*lat1)*math.cos(rad*lat2)*(math.sin(rad*dlen/2))**2
+        uno = dlat/2
+        a= (math.sin(rad*dlat/2))**2 + math.cos(rad*lat1)*math.cos(rad*lat2)*(math.sin(rad*dlon/2))**2
         distancia = 2*R*math.asin(math.sqrt(a))
         return distancia 
 
@@ -66,6 +67,13 @@ class Utils:
             else:
                 x.append(0)
         return np.array(x)
+
+    def User_already_exist(id_user, G):
+        for vertex in G.verteces:
+            if vertex.value == id_user:
+                return True
+            else :
+                return False
 
 
 
