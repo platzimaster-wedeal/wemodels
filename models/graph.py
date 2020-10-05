@@ -1,3 +1,5 @@
+"""This file have the graph model """
+
 import math
 from utils import Utils
 
