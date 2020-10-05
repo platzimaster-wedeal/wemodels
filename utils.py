@@ -1,3 +1,4 @@
+""" Some utilities that are used in the application"""
 import pandas as pd
 import numpy as np
 import joblib
@@ -6,17 +7,17 @@ import math
 class Utils:
 
     def load_from_csv(self, path):
+        """ Read a csv """
         return pd.read_csv(path)
 
-    def load_from_mysql(self):
-        pass
-
     def features_target(self, dataset, drop_cols, y):
+        """ Divide a dataset in two variables X and y """
         X = dataset.drop(drop_cols, axis=1)
         y = dataset[y]
         return X,y
 
     def model_export(self, clf, score, models_type):
+        """ Export a machine learning model"""
         score = round(score)
         joblib.dump(clf, f'./best_models/{models_type}_model_{score}.pkl')
 
@@ -32,6 +33,8 @@ class Utils:
         return distancia 
 
     def Convert_user_data(work_area, qualification):
+        """ Convert user data in a data with the necessary format 
+            to use in the model prediction"""
         areas = ['HR', 'Designing', 'Managment', 'Information Technology',
         'Education', 'Advocate', 'Business Development',
         'Health & Fitness', 'Agricultural', 'BPO', 'Sales', 'Consultant',
@@ -47,8 +50,9 @@ class Utils:
         x.append(qualification)
         return np.array(x)
 
-
     def Convert_job_offer_data(work_area):
+        """ Convert job offer data in a data with the necessary format 
+            to use in the model prediction"""
         areas = ['HR', 'Designing', 'Managment', 'Information Technology',
         'Education', 'Advocate', 'Business Development',
         'Health & Fitness', 'Agricultural', 'BPO', 'Sales', 'Consultant',
