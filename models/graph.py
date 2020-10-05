@@ -39,18 +39,20 @@ class Vertex:
             else:
                 weight = self.calculate_weight(vertex)
                 self.weights.append((vertex.value, weight))
+                vertex.weights.append((self.value, weight))
                 if weight <= self.max_edge_length_km:
                     self.neighbours.append(vertex)
+
 
 
     def calculate_weight(self, vertex):
         """Calculate the distance between two users 
            and establish as weight"""
-        lat1 = self.latitude
-        len1 = self.length
-        lat2 = vertex.latitude
-        len2 = vertex.length
-        return utils.haversine(lat1,len1,lat2,len2)
+        lat1 = float(self.latitude)
+        lon1 = float(self.length)
+        lat2 = float(vertex.latitude)
+        lon2 = float(vertex.length)
+        return utils.haversine(lat1,lon1,lat2,lon2)
 
 
     def update_graph(self):
