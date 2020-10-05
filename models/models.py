@@ -1,10 +1,11 @@
+"""This file have the constructor of prediction models"""
+#Tools
 import pandas as pd
 import numpy as np
-
 from sklearn.svm import SVR
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import GridSearchCV
-
+#We_deal
 from utils import Utils
 
 class Models:
@@ -28,7 +29,8 @@ class Models:
         }
 
     def grid_training(self, X,y):
-
+        """Train differents models with different configurations 
+           and export best model based on its score"""
         best_score = 999
         best_model = None
 
@@ -41,6 +43,5 @@ class Models:
                 best_score = score
                 best_model = grid_reg.best_estimator_
         
-
         utils = Utils()
         utils.model_export(best_model, best_score, self.model_type)
