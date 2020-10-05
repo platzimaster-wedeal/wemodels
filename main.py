@@ -1,3 +1,5 @@
+"""This is the main file when we want retrain prediction models or add new features"""
+# We_deal
 from utils import Utils
 from models.models import Models
 
