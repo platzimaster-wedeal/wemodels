@@ -5,7 +5,5 @@ from flask_env import MetaFlaskEnv
 
 class Configuration(metaclass=MetaFlaskEnv):
     """ Configurations"""
-    DEBUG = True
-    PORT = 8080
-    ENV_PREFIX = 'WEDEAL_'
-    ENV_LOAD_ALL = True
+    DEBUG = False
+    PORT = 5000
