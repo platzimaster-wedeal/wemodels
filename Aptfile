@@ -2,4 +2,4 @@ unixodbc
 unixodbc-dev
 python-pyodbc
 libsqliteodbc
-heroku/python
+https://github.com/heroku/heroku-buildpack-python
