@@ -2,5 +2,4 @@ unixodbc
 unixodbc-dev
 python-pyodbc
 libsqliteodbc
-gunicorn
-pandas
+heroku/python
