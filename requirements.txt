@@ -18,4 +18,4 @@ sklearn==0.0
 threadpoolctl==2.1.0
 Werkzeug==1.0.1
 gunicorn==20.0.4
-python-pyodbc== 4.0.17-1
+python-pyodbc== 4.0.17
