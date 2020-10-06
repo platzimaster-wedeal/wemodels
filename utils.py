@@ -72,8 +72,7 @@ class Utils:
         for vertex in G.verteces:
             if vertex.value == id_user:
                 return True
-            else :
-                return False
+        return False
 
 
 
