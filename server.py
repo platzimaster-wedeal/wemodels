@@ -16,10 +16,10 @@ import os
 app = Flask(__name__)
 app.config.from_object(Configuration)
 # Initializing data base conexion 
-server = os.environ['WEDEAL_SERVER'] 
-database = os.environ['WEDEAL_DATABASE'] 
-username = os.environ['WEDEAL_USER_NAME'] 
-password = os.environ['WEDEAL_PASSWORD'] 
+server = 'wedealserver.database.windows.net'
+database = 'wedeal'
+username =  'wedeal'
+password =  'H#Md7m75@Pc'
 url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password+''
 # Initializing Graph
 G = Graph('test','version1')
