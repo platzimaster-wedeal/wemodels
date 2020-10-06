@@ -19,7 +19,7 @@ app.config.from_object(Configuration)
 server = 'wedealserver.database.windows.net'
 database = 'wedeal'
 username =  'wedeal'
-password =  'H#Md7m75@Pc'
+password =  '9H#Md7m75@Pc'
 url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password+''
 # Initializing Graph
 G = Graph('test','version1')
