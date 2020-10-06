@@ -3,4 +3,4 @@ unixodbc-dev
 python-pyodbc
 libsqliteodbc
 gunicorn
-Flask
+flask
