@@ -26,6 +26,10 @@ G = Graph('test','version1')
 
 
 # Routes
+@app.route('/', methods=['GET'])
+def init():
+    return "Welcome to We deal, this api is only available to We Deal developers"
+
 @app.route('/user/<id_user>', methods=['GET'])
 def predict_user(id_user):
     """ This route responses with a prediction based on user's work area
@@ -36,11 +40,19 @@ def predict_user(id_user):
     cnxn = pyodbc.connect(url_conexion)
     work_area = Get_work_area(id_user, cnxn, 'user')
     qualification = Get_user_qualification(id_user, cnxn)
-    X_test = Utils.Convert_user_data(work_area, qualification)
-    model = joblib.load('./best_models/user_model_16.pkl')
-    prediction = model.predict(X_test.reshape(1,-1))
+    if work_area == None or qualification == None:
+        response = make_response(
+                jsonify({'Someting was wrong with user data' : id_user}),
+                400,)
+    else:
+        X_test = Utils.Convert_user_data(work_area, qualification)
+        model = joblib.load('./best_models/user_model_16.pkl')
+        prediction = model.predict(X_test.reshape(1,-1))
+        response = make_response(
+                jsonify({'prediccion' : list(prediction)}),
+                200,)
     cnxn.close()
-    return jsonify({'prediccion' : list(prediction)})
+    return response
     
 
 @app.route('/job_offer/<id_job_offer>', methods=['GET'])
@@ -52,11 +64,19 @@ def predict_job_offer(id_job_offer):
         located in best_models."""
     cnxn = pyodbc.connect(url_conexion)
     work_area = Get_work_area(id_job_offer, cnxn, 'job_offer')
-    X_test = Utils.Convert_job_offer_data(work_area)
-    model = joblib.load('./best_models/job_offer_model_16.pkl')
-    prediction = model.predict(X_test.reshape(1,-1))
+    if work_area == None:
+        response = make_response(
+                jsonify({'Someting was wrong with job_offer data' : id_job_offer}),
+                400,)
+    else:
+        X_test = Utils.Convert_job_offer_data(work_area)
+        model = joblib.load('./best_models/job_offer_model_16.pkl')
+        prediction = model.predict(X_test.reshape(1,-1))
+        response = make_response(
+                jsonify({'prediccion' : list(prediction)}),
+                200,)
     cnxn.close()
-    return jsonify({'prediccion' : list(prediction)})
+    return response
 
 @app.route('/vertex/<id_user>', methods=['GET'])
 def new_vertex(id_user):
@@ -73,14 +93,18 @@ def new_vertex(id_user):
     else :
         latitude = Get_user_latitude(id_user, cnxn)
         longitude = Get_user_longitude(id_user, cnxn)
-        V = Vertex(id_user,latitude, longitude)
-        G.verteces.append(V) 
-        print(G.verteces)
-        V.search_neighbours(G) #O(V)ok
-        V.update_graph() #O(V)
-        response = make_response(
-            jsonify({'New user was add succesful' : V.value}),
-            200,)
+        if latitude == None or longitude == None:
+            response = make_response(
+                jsonify({'Someting was wrong with job_offer data' : id_user}),
+                400,)
+        else:
+            V = Vertex(id_user,latitude, longitude)
+            G.verteces.append(V) 
+            V.search_neighbours(G) #O(V)
+            V.update_graph() #O(V)
+            response = make_response(
+                jsonify({'New user was add succesful' : V.value}),
+                200,)
     cnxn.close()
     return response
 
