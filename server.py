@@ -4,7 +4,7 @@ from flask import Flask, make_response, jsonify
 from configuration import Configuration
 #We_deal
 from models.graph import Graph, Vertex
-from queries.queries import Get_work_area, Get_user_qualification, Get_user_latitude, Get_user_longitude, Get_users_based_on_work_area, Get_work_area_id
+from queries.queries import Get_work_area, Get_user_qualification, Get_user_latitude, Get_user_longitude, Get_info_based_on_work_area, Get_work_area_id
 from utils import Utils
 from models.bar import Users_list
 # Tools
@@ -146,9 +146,9 @@ def Search_bar_filter(work_area, type_):
     cnxn = pyodbc.connect(url_conexion)
     id_work_area = Get_work_area_id(work_area, cnxn)
     if type_ == 'job_offer':
-      users = Get_users_based_on_work_area(id_work_area, cnxn, type_)
+      users = Get_info_based_on_work_area(id_work_area, cnxn, type_)
     else:
-        users = Get_users_based_on_work_area(id_work_area, cnxn, type_)
+        users = Get_info_based_on_work_area(id_work_area, cnxn, type_)
     if id_work_area == None or users == None:
         return response = make_response(
                         jsonify({'Someting was wrong with  your request' : work_area}),
