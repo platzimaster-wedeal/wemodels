@@ -135,3 +135,35 @@ def Get_user_longitude(id_user, cnxn):
     else:
         longitude = row[0]
         return longitude
+
+def Get_work_area_id(title_work_area, cnxn):
+    """ Recive a work area name and return an id work area """
+    cursor = cnxn.cursor()
+    row = cursor.execute("SELECT id FROM work_areas WHERE title=?",title_work_area).fetchone()
+    if row == None:
+       return None
+    else:
+        id_work_area = row[0]
+        return  id_work_area
+
+
+def Get_info_based_on_work_area(id_work_area, cnxn, type_):
+    """Recive an id work area and return a list of users or 
+       job offers that math with this id work area"""
+    cursor = cnxn.cursor()
+    users = []
+    if id_work_area == None:
+        return None
+    if type_ == 'user':
+        row = cursor.execute("SELECT id FROM users WHERE id_work_area =?", id_work_area).fetchall()
+        for i in row:
+            users.append(i[0])
+    elif type_ == 'job_offer':
+        row = cursor.execute("SELECT id_job_offer FROM work_area_jobs WHERE id_work_area =?", id_work_area).fetchall()
+        for i in row:
+            users.append(i[0])
+    else: 
+        return None
+    return users
+        
+       
