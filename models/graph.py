@@ -15,7 +15,7 @@ class Graph:
 
 class Vertex:
     """Vertex class"""
-    max_edge_length_km = 100
+    max_edge_length_km = 10
     
     def __init__(self, value, latitude, length):
         self.value = value 
