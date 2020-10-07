@@ -2,6 +2,7 @@
 #Flask
 from flask import Flask, make_response, jsonify, redirect, url_for
 from configuration import Configuration
+from flask_cors import CORS, cross_origin
 #We_deal
 from models.graph import Graph, Vertex
 from queries.queries import Get_work_area, Get_user_qualification, Get_user_latitude, Get_user_longitude, Get_info_based_on_work_area, Get_work_area_id
@@ -16,6 +17,8 @@ import os
 # Initializing app
 app = Flask(__name__)
 app.config.from_object(Configuration)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'WeDeal'
 # Initializing data base conexion 
 server = 'wedealserver.database.windows.net'
 database = 'wedeal'
@@ -30,10 +33,12 @@ userslist = Users_list()
 
 # Routes
 @app.route('/', methods=['GET'])
+@cross_origin()
 def init():
     return "Welcome to We deal, this api is only available to We Deal developers"
 
 @app.route('/user/<id_user>', methods=['GET'])
+@cross_origin()
 def predict_user(id_user):
     """ This route responses with a prediction based on user's work area
         and qualification to use it  need as parameter a id user, 
@@ -59,6 +64,7 @@ def predict_user(id_user):
     
 
 @app.route('/job_offer/<id_job_offer>', methods=['GET'])
+@cross_origin()
 def predict_job_offer(id_job_offer):
     """ This route responses with a prediction based on job offer work area
         to use it  need as parameter a id job offer, 
@@ -82,6 +88,7 @@ def predict_job_offer(id_job_offer):
     return response
 
 @app.route('/vertex/<id_user>', methods=['GET'])
+@cross_origin()
 def new_vertex(id_user):
     """ This route create a new vertex. 
         Time complexity = O(2A)
@@ -112,6 +119,7 @@ def new_vertex(id_user):
     return response
 
 @app.route('/location/<id_user>', methods=['GET'])
+@cross_origin()
 def localization_filter (id_user):
     """ This route find  closer users of a user based on his location.
         This route receive a id user and redirec to rute /bar 
@@ -140,6 +148,7 @@ def localization_filter (id_user):
     return redirect(url_for('bar'))
 
 @app.route('/bar/<work_area>/<type_>',methods=['GET'])
+@cross_origin()
 def Search_bar_filter(work_area, type_):
     """ This route find an id users or id job offer 
         based on a specific work area. 
@@ -171,6 +180,7 @@ def Search_bar_filter(work_area, type_):
     
 
 @app.route('/bar', methods=['GET'])
+@cross_origin()
 def bar():
     """ This route create a list of user based on 
         two filters, filter by work area and filter by location.
