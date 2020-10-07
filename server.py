@@ -1,6 +1,6 @@
 """This is the main  file that control all aplication internal  flow"""
 #Flask
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, redirect, url_for
 from configuration import Configuration
 #We_deal
 from models.graph import Graph, Vertex
@@ -120,9 +120,10 @@ def localization_filter (id_user):
     cnxn = pyodbc.connect(url_conexion)
     exist = Utils.User_already_exist(id_user, G)
     if exist == False:
-        return response = make_response(
+        response = make_response(
                jsonify({'user is not in graph yet, first you have to add it in graph' : id_user }),
                400,)
+        return response
     else : 
         for vertex in G.verteces:
             if id_user == vertex.value:
@@ -134,6 +135,7 @@ def localization_filter (id_user):
                 #response = make_response(
                 #jsonify({'nearest_neighbours' : list(nearest_neighbours)}),
                 # 200,)
+    userslist.bar_filter()
     cnxn.close()
     return redirect(url_for('bar'))
 
@@ -150,9 +152,10 @@ def Search_bar_filter(work_area, type_):
     else:
         users = Get_info_based_on_work_area(id_work_area, cnxn, type_)
     if id_work_area == None or users == None:
-        return response = make_response(
+        response = make_response(
                         jsonify({'Someting was wrong with  your request' : work_area}),
                         400,)
+        return response
     #elif type_ == 'user':
     #    response = make_response(
     #            jsonify({'users filter by work area' : users}),
@@ -162,6 +165,7 @@ def Search_bar_filter(work_area, type_):
     #            jsonify({'job_offer filter by work area' : users}),
     #            200,)
     userslist.users1 = users
+    userslist.bar_filter()
     cnxn.close()
     return redirect(url_for('bar'))
     
@@ -172,24 +176,25 @@ def bar():
         two filters, filter by work area and filter by location.
         this route  receive nothing and retorn a lists of 10 users
         order by filters"""  
-    userslist.bar_filter()
-    users = userslist.users
-    if len(users) == 0:
-        return response = make_response(
-                jsonify({'there are not more imformation to send' : users}),
+    if len(userslist.users) == 0:
+        response = make_response(
+                jsonify({'there are not more imformation to send' : userslist.users}),
                 400,)
-    elif len(users) <= 10:
-        list1 = users[:10]
-        #users.pop(:10)
-        for i in range(10):
-            users.pop(i)
-        yield response = make_response(
+        return response
+    elif len(userslist.users) >= 10:
+        list1 = userslist.users[:10]
+        for i in range(11):
+            userslist.users.pop(0)
+        response = make_response(
                 jsonify({'users list is' : list1}),
                 200,)
+        return response
     else: 
-        return response = make_response(
-                jsonify({'users list is' : users}),
+        response = make_response(
+                jsonify({'users list is' : userslist.users}),
                 200,)
+        userslist.users = []   
+        return response
         
         
 
