@@ -21,7 +21,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'WeDeal'
 # Initializing data base conexion 
 server = 'wedealserver.database.windows.net'
-database = 'wedeal'
+database = 'wedeal2'
 username =  'wedeal'
 password =  '9H#Md7m75@Pc'
 url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password+''
