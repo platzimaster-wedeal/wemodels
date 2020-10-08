@@ -2,7 +2,5 @@ unixodbc
 unixodbc-dev
 python-pyodbc
 libsqliteodbc
-# install msodbcsql17
-https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/m/msodbcsql17/msodbcsql17_17.4.2.1-1_amd64.deb
-# install mssql-tools
-https://packages.microsoft.com/ubuntu/18.04/prod/pool/main/m/mssql-tools/mssql-tools_17.4.1.1-1_amd64.deb
+libmsodbcsql-17.5.so.2.1
+msodbcsqlr17.rll
