@@ -46,8 +46,8 @@ def predict_user(id_user):
         Prediction use the best model with the best score 
         located in best_models."""
     cnxn = pyodbc.connect(url_conexion)
-    cursor = cnxn.cursor()
     return 'hola'
+    cursor = cnxn.cursor()
     row = cursor.execute("SELECT title FROM work_areas WHERE id=?", id ).fetchone()
     work_area = Get_work_area(id_user, cnxn, 'user')
     qualification = Get_user_qualification(id_user, cnxn)
