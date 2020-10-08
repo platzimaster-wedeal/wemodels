@@ -45,8 +45,9 @@ def predict_user(id_user):
         at the end return a json with the response . 
         Prediction use the best model with the best score 
         located in best_models."""
+    return "entre"    
     cnxn = pyodbc.connect(url_conexion)
-    return 'hola'
+    return "hola"
     cursor = cnxn.cursor()
     row = cursor.execute("SELECT title FROM work_areas WHERE id=?", id ).fetchone()
     work_area = Get_work_area(id_user, cnxn, 'user')
