@@ -8,6 +8,7 @@ from models.graph import Graph, Vertex
 from queries.queries import Get_work_area, Get_user_qualification, Get_user_latitude, Get_user_longitude, Get_info_based_on_work_area, Get_work_area_id
 from utils import Utils
 from models.bar import Users_list
+from local_settings import data_base
 # Tools
 import joblib
 import pyodbc
@@ -19,12 +20,9 @@ app = Flask(__name__)
 app.config.from_object(Configuration)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'WeDeal'
-# Initializing data base conexion 
-server = 'wedealserver.database.windows.net'
-database = 'wedeal2'
-username =  'wedeal'
-password =  '9H#Md7m75@Pc'
-url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+password+''
+# Initializing data base conexion
+url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+data_base.server+';DATABASE='+data_base.database+';UID='+data_base.username+';PWD='+data_base.password+''
+
 # Initializing Graph
 G = Graph('test','version1')
 # Initializing User List
