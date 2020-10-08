@@ -46,8 +46,11 @@ def predict_user(id_user):
         Prediction use the best model with the best score 
         located in best_models."""
     cnxn = pyodbc.connect(url_conexion)
+    response = make_response(
+                jsonify({'test' : cnxn}),
+                200,)
+    return response
     work_area = Get_work_area(id_user, cnxn, 'user')
-    return "toy aqui"
     qualification = Get_user_qualification(id_user, cnxn)
     if work_area == None or qualification == None:
         response = make_response(
