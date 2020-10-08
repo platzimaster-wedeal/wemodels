@@ -44,8 +44,7 @@ def predict_user(id_user):
         and qualification to use it  need as parameter a id user, 
         at the end return a json with the response . 
         Prediction use the best model with the best score 
-        located in best_models."""
-    return "entre"    
+        located in best_models."""  
     cnxn = pyodbc.connect(url_conexion)
     return "hola"
     cursor = cnxn.cursor()
