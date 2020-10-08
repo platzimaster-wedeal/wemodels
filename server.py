@@ -21,7 +21,7 @@ app.config.from_object(Configuration)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'WeDeal'
 # Initializing data base conexion
-url_conexion='DRIVER={ODBC Driver 17 for SQL Server};SERVER='+data_base.server+';DATABASE='+data_base.database+';UID='+data_base.username+';PWD='+data_base.password+''
+url_conexion=os.environ('MSSQL_URL')
 
 # Initializing Graph
 G = Graph('test','version1')
