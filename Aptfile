@@ -2,5 +2,4 @@ unixodbc
 unixodbc-dev
 python-pyodbc
 libsqliteodbc
-libmsodbcsql-17.5.so.2.1
-msodbcsqlr17.rll
+https://github.com/matt-bertoncello/python-pyodbc-buildpack.git
