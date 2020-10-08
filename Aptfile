@@ -2,4 +2,3 @@ unixodbc
 unixodbc-dev
 python-pyodbc
 libsqliteodbc
-https://github.com/matt-bertoncello/python-pyodbc-buildpack.git
