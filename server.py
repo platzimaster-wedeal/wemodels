@@ -44,10 +44,8 @@ def predict_user(id_user):
         and qualification to use it  need as parameter a id user, 
         at the end return a json with the response . 
         Prediction use the best model with the best score 
-        located in best_models."""  
+        located in best_models."""
     cnxn = pyodbc.connect(url_conexion)
-    cursor = cnxn.cursor()
-    row = cursor.execute("SELECT title FROM work_areas WHERE id=?", id ).fetchone()
     work_area = Get_work_area(id_user, cnxn, 'user')
     qualification = Get_user_qualification(id_user, cnxn)
     if work_area == None or qualification == None:
