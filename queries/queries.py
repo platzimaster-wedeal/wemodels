@@ -48,8 +48,6 @@ def Get_user_qualification(id_user,cnxn):
     else:
         id_employer = Get_employer_id(id_user,cnxn)
         qualification = Get_qualificatio_employer(id_employer, cnxn)
-        print(id_employer)
-        print(qualification)
         if id_employer == None or qualification == None:
             return None
     return qualification
