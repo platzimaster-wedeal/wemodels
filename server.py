@@ -12,7 +12,8 @@ from models.bar import Users_list
 import joblib
 import pyodbc
 import os
-
+# Test
+import unittest
 
 # Initializing app
 app = Flask(__name__)
@@ -30,6 +31,11 @@ G = Graph('test','version1')
 # Initializing User List
 userslist = Users_list()
 
+# app tests
+@app.cli.command()
+def test():
+    test = unittest.TestLoader().discover('test')
+    unittest.TextTestRunner().run(test)
 
 # Routes
 @app.route('/', methods=['GET'])
@@ -45,6 +51,13 @@ def predict_user(id_user):
         at the end return a json with the response . 
         Prediction use the best model with the best score 
         located in best_models."""
+    try :
+        int(id_user)
+    except:
+        response = make_response(
+                jsonify({'Someting was wrong with your request' : id_user}),
+                400,)
+        return response
     cnxn = pyodbc.connect(url_conexion)
     work_area = Get_work_area(id_user, cnxn, 'user')
     qualification = Get_user_qualification(id_user, cnxn)
@@ -71,6 +84,13 @@ def predict_job_offer(id_job_offer):
         at the end return a json with the response . 
         Prediction use the best model with the best score 
         located in best_models."""
+    try :
+        int(id_job_offer)
+    except:
+        response = make_response(
+                jsonify({'Someting was wrong with your request' : id_job_offer}),
+                400,)
+        return response
     cnxn = pyodbc.connect(url_conexion)
     work_area = Get_work_area(id_job_offer, cnxn, 'job_offer')
     if work_area == None:
@@ -94,6 +114,13 @@ def new_vertex(id_user):
         Time complexity = O(2A)
         Space complexity = O(A+E)
         """
+    try :
+        int(id_user)
+    except:
+        response = make_response(
+                jsonify({'Someting was wrong with your request' : id_user}),
+                400,)
+        return response
     cnxn = pyodbc.connect(url_conexion)
     exist = Utils.User_already_exist(id_user, G)
     if exist == True:
@@ -125,6 +152,13 @@ def localization_filter (id_user):
         This route receive a id user and redirec to rute /bar 
         O(V)+O(sorted)
        """
+    try :
+        int(id_user)
+    except:
+        response = make_response(
+                jsonify({'Someting was wrong with your request' : id_user}),
+                400,)
+        return response
     cnxn = pyodbc.connect(url_conexion)
     exist = Utils.User_already_exist(id_user, G)
     if exist == False:
